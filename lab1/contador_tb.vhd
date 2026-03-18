@@ -13,14 +13,14 @@ architecture a_contador_tb of contador_tb is
         clk: in std_logic;
         rst: in std_logic;
         en: in std_logic;
-        -- clr: in std_logic; -- tirei pq ainda n sei como funciona esse cara
+        clr: in std_logic; -- tirei pq ainda n sei como funciona esse cara
         saida: out unsigned(3 downto 0));
     end component;
 
-    signal clk, rst, en: std_logic;
+    signal clk, rst, en, clr: std_logic;
     signal saida: unsigned(3 downto 0);
 
-    constant period_time: time := 100 ns;
+    constant period_time: time := 20 ns; -- Período de um clock(sobida + decida)
     signal finished: std_logic := '0';
 
     begin
@@ -28,18 +28,13 @@ architecture a_contador_tb of contador_tb is
         clk => clk,
         rst => rst,
         en => en,
+        clr => clr,
         saida => saida);
 
-    reset_global: process
+    reset_global: process -- Mudança aqui no reset
     begin
-        rst <= '0';
-        wait for 1400 ns;
         rst <= '1';
-        wait for 100 ns;
-        rst <= '0';
-        wait for 3 us;
-        rst <= '1';
-        wait for 100 ns;
+        wait for 15 ns;
         rst <= '0';
         wait;
     end process reset_global;
@@ -62,15 +57,26 @@ architecture a_contador_tb of contador_tb is
         wait;
     end process clk_proc;
 
-    process
-    begin
-        en <= '0';
-        wait for 1 us;
+    enable_proc: process -- alteração no tempo do en
+    begin 
         en <= '1';
-        wait for 1 us;
+        wait for 185 ns;
         en <= '0';
-        wait for 1 us;
-        en <= '1';
         wait;
-    end process;
+    end process enable_proc;
+
+    clr_proc: process -- Inclusão do crl
+    begin
+        clr <= '0';
+        wait for 75 ns;
+        clr <= '1';
+        wait for 20 ns;
+        clr <= '0';
+        wait for 30 ns;
+        clr <= '1';
+        wait for 20 ns;
+        clr <= '0';
+        wait;
+    end process clr_proc;
+
 end architecture;
