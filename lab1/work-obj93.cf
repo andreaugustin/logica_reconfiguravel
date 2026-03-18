@@ -1,7 +1,0 @@
-v 4
-file . "contador_tb.vhd" "ccf112f40bbae60da244ec75179511de07bef8c9" "20260315224507.993":
-  entity contador_tb at 1( 0) + 0 on 29;
-  architecture a_contador_tb of contador_tb at 9( 163) + 0 on 30;
-file . "contador.vhd" "7416a457acd1be8ab465ba1fb4c34a5bb34b69c4" "20260315221955.883":
-  entity contador at 1( 0) + 0 on 19;
-  architecture a_contador of contador at 14( 312) + 0 on 20;
