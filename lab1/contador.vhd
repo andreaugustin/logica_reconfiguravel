@@ -24,7 +24,7 @@ architecture a_contador of contador is
                 if clr = '1' then
                     saida_s <= "0000";
                 elsif en = '1' then
-                    if saida_s <= "1111" then
+                    if saida_s = "1111" then
                         saida_s <= "0000";
                     else
                         saida_s <= saida_s + 1;
