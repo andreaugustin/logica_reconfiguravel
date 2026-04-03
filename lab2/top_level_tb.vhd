@@ -13,13 +13,15 @@ architecture a_top_level_tb of top_level_tb is
     rst: in std_logic;
     en: in std_logic;
     clk: in std_logic;
-    unidade: out unsigned(3 downto 0);
-    dezena: out unsigned(3 downto 0)
+    data_in0: in unsigned(3 downto 0);
+    data_in1: in unsigned(3 downto 0);
+    unit: out unsigned(3 downto 0);
+    ten: out unsigned(3 downto 0)
     );
     end component;
 
     signal clk, rst, en: std_logic;
-    signal unidade_s, dezena_s: unsigned(3 downto 0);
+    signal data_in0, data_in1, unit, ten_s: unsigned(3 downto 0);
 
     constant period_time: time := 20 ns; -- Período de um clock(sobida + decida)
     signal finished: std_logic := '0';
@@ -29,8 +31,10 @@ architecture a_top_level_tb of top_level_tb is
                             rst => rst,
                             en => en,
                             clk => clk,
-                            unidade => unidade_s,
-                            dezena => dezena_s);
+                            data_in0 => data_in0,
+                            data_in1 => data_in1,
+                            unit => unit,
+                            ten => ten_s);
 
     reset_global: process -- Mudança aqui no reset
     begin
@@ -65,5 +69,17 @@ architecture a_top_level_tb of top_level_tb is
         en <= '0';
         wait;
     end process enable_proc;
+
+    data_in0_proc: process 
+    begin
+        data_in0 <= "0101";
+        wait;
+    end process data_in0_proc;
+
+    data_in1_proc: process 
+    begin
+        data_in1 <= "0001";
+        wait;
+    end process data_in1_proc;
 
 end architecture;

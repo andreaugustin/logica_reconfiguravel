@@ -7,48 +7,68 @@ entity top_level is
     rst: in std_logic;
     en: in std_logic;
     clk: in std_logic;
-    unidade: out unsigned(3 downto 0);
-    dezena: out unsigned(3 downto 0)
+    data_in0: in unsigned(3 downto 0);
+    data_in1: in unsigned(3 downto 0);
+    unit: out unsigned(3 downto 0);
+    ten: out unsigned(3 downto 0)
     );
 end entity;
 
 architecture a_top_level of top_level is
 
-    component contador is
+    component counter is
     port(
         clk: in std_logic;
         rst: in std_logic;
         en: in std_logic;
         clr: in std_logic; 
-        saida: out unsigned(3 downto 0));
+        load: in std_logic;
+        data_in: in unsigned(3 downto 0);
+        count: out unsigned(3 downto 0));
     end component;
 
-    component and_1001 is
+    component cmp_eq_9 is
     port(
-        entrada: in unsigned(3 downto 0);
-        saida: out std_logic);
+        value: in unsigned(3 downto 0);
+        is_equal: out std_logic);
     end component;
 
-    signal saida_comparador: std_logic;
-    signal unidade_s, dezena_s: unsigned(3 downto 0);
+    component cmp_eq_89 is
+    port(
+        value_unit: in unsigned(3 downto 0); 
+        value_ten: in unsigned(3 downto 0); 
+        is_equal: out std_logic);
+    end component;
+
+    signal out_comparator9: std_logic;
+    signal out_comparator89: std_logic;
+    signal unit_s, ten_s: unsigned(3 downto 0);
 
     begin
-        contador1: contador port map(clk => clk,
+        counter0: counter port map(clk => clk,
                                     rst => rst,
                                     en => en,
-                                    clr => saida_comparador,
-                                    saida => unidade_s);
+                                    clr => out_comparator9,
+                                    load => out_comparator89,
+                                    data_in => data_in0,
+                                    count => unit_s);
 
-        contador2: contador port map(clk => clk,
+        counter1: counter port map(clk => clk,
                                     rst => rst,
-                                    en => saida_comparador,
+                                    en => out_comparator9,
                                     clr => '0',
-                                    saida => dezena_s);
+                                    load => out_comparator89,
+                                    data_in => data_in1,
+                                    count => ten_s);
 
-        comparador: and_1001 port map(entrada => unidade_s,
-                                    saida => saida_comparador);
+        comparator9: cmp_eq_9 port map(value => unit_s,
+                                    is_equal => out_comparator9);
 
-    unidade <= unidade_s;
-    dezena <= dezena_s;
+        comparator89: cmp_eq_89 port map(value_unit => unit_s,
+                                        value_ten => ten_s,
+                                        is_equal => out_comparator89);
+
+    unit <= unit_s;
+    ten <= ten_s;
 
 end architecture;
