@@ -45,6 +45,7 @@ architecture a_top_level of top_level is
     signal unit_s, ten_s: unsigned(3 downto 0);
 
     begin
+
         counter0: counter port map(clk => clk,
                                     rst => rst,
                                     en => en,
