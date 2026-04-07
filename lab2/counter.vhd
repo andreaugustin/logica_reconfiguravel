@@ -21,7 +21,7 @@ architecture a_counter of counter is
         process(clk, rst, clr)
         begin
             if rst = '1' then
-                count_s <= data_in;
+                count_s <= "0000";
             elsif rising_edge(clk) then
 
                 if load = '1' then -- qnd load = 1, o contador carrega data_in nesse ciclo de clk

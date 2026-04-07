@@ -33,7 +33,7 @@ architecture a_top_level of top_level is
         is_equal: out std_logic);
     end component;
 
-    component cmp_eq_89 is
+    component cmp_eq_15_or_89 is
     port(
         value_unit: in unsigned(3 downto 0); 
         value_ten: in unsigned(3 downto 0); 
@@ -65,7 +65,7 @@ architecture a_top_level of top_level is
         comparator9: cmp_eq_9 port map(value => unit_s,
                                     is_equal => out_comparator9);
 
-        comparator89: cmp_eq_89 port map(value_unit => unit_s,
+        comparator89: cmp_eq_15_or_89 port map(value_unit => unit_s,
                                         value_ten => ten_s,
                                         is_equal => out_comparator89);
 

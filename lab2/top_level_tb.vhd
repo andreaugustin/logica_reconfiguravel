@@ -36,13 +36,13 @@ architecture a_top_level_tb of top_level_tb is
                             unit => unit,
                             ten => ten_s);
 
-    reset_global: process -- Mudança aqui no reset
-    begin
-        rst <= '1';
-        wait for 15 ns;
-        rst <= '0';
-        wait;
-    end process reset_global;
+    --reset_global: process -- Mudança aqui no reset
+    --begin
+    --    rst <= '1';
+    --    wait for 15 ns;
+    --    rst <= '0';
+    --    wait;
+    --end process reset_global;
 
     sim_time_proc: process
     begin
