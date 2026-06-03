@@ -16,7 +16,7 @@ entity uart is
         rx_data: out std_logic_vector(7 downto 0);
         
         tx_ready: out std_logic 
-    )
+    );
 end entity;
 
 -- No nosso script, conseguimos setar a frequência que estaremos enviando os bits
@@ -108,6 +108,8 @@ begin
 
                 when "10" => -- COLOCA 1 BYTE NA SAIDA
                     tx_ready_s <= '1';
+                    state <= "00";
+                when others => 
                     state <= "00";
                 end case;
             end if;
