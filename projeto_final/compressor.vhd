@@ -7,19 +7,19 @@ entity compressor is
         clk: in std_logic;
         rst: in std_logic;
         data_in : in  std_logic_vector(7 downto 0); 
-        data_out : out std_logic_vector(7 downto 0)
+        data_out : out std_logic_vector(3 downto 0)
     );
 end entity;
 
 architecture a_compressor of compressor is
-    signal temp: std_logic_vector(7 downto 0) := "00000000";
+    signal temp: std_logic_vector(3 downto 0) := "0000";
     begin
         process(clk, rst)
         begin
             if rst = '1' then
-                temp <= "00000000";
+                temp <= "0000";
             elsif rising_edge(clk) then
-                temp <= data_in;
+                temp <= data_in(7 downto 4);
             end if;
         end process;
         data_out <= temp;
